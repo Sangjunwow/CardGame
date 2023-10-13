@@ -66,20 +66,20 @@ public class CardManager : MonoBehaviour
         (isMine ? myCards : otherCards).Add(card);
 
         SetOriginOrder(isMine);
-        cardAlignment(isMine);
+        CardAlignment(isMine);
     }
 
 
     private void SetOriginOrder(bool isMine)
     {
-       int count = isMine ? myCards.Count : otherCards.Count;
-        for(int i = 0; i< count; i++)
+        int count = isMine ? myCards.Count : otherCards.Count;
+        for (int i = 0; i < count; i++)
         {
-            var targetcard = isMine ? myCards[i] : otherCards[i];
-            targetcard?.GetComponent<Order>().SetOriginOrder(i);
+            var targetCard = isMine ? myCards[i] : otherCards[i];
+            targetCard?.GetComponent<Order>().SetOriginOrder(i);
         }
     }
-    private void cardAlignment(bool isMine)
+    private void CardAlignment(bool isMine)
     {
         List<PRS> originCardPRSs = new List<PRS>();
         if (isMine)
@@ -90,10 +90,14 @@ public class CardManager : MonoBehaviour
 
 
         var targetCards = isMine ? myCards : otherCards;
-        for (int i = 0;i< targetCards.Count; i++)
+        for (int i = 0; i < targetCards.Count; i++)
         {
             var targetCard = targetCards[i];
-
+            /*         if (i >= originCardPRSs.Count)
+                     {
+                         Debug.LogError($"Trying to access index {i} but originCardPRSs only has {originCardPRSs.Count} items.");
+                         continue;
+                     }*/
             targetCard.originPRS = originCardPRSs[i];
             targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
         }
@@ -110,19 +114,19 @@ public class CardManager : MonoBehaviour
             case 2: objLerps = new float[] { 0.27f, 0.73f }; break;
             case 3: objLerps = new float[] { 0.1f, 0.5f, 0.9f }; break;
             default:
-                float interval = 1f/ (objCount-1);
+                float interval = 1f / (objCount - 1);
                 for (int i = 0; i < objCount; i++)
-                    objLerps[i] = interval * i; 
+                    objLerps[i] = interval * i;
                 break;
         }
 
-        for (int i = 0; i<objCount; i++)
+        for (int i = 0; i < objCount; i++)
         {
             var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]);
             var targetRot = Utils.QI;
-            if (objCount >= 4) 
+            if (objCount >= 4)
             {
-                float curve = Mathf.Sqrt(Mathf.Pow(height,2) - Mathf.Pow(objLerps[i]-0.5f,2));
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
                 curve = height >= 0 ? curve : -curve;
                 targetPos.y += curve;
                 targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
