@@ -50,13 +50,14 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         SetupItemBuffer();
+        TurnManager.OnAddCard += AddCard;
+    }
+    private void OnDestroy()
+    {
+        TurnManager.OnAddCard -= AddCard;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-            AddCard(true);
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-            AddCard(false);
     }
     void AddCard(bool isMine)
     {
@@ -83,7 +84,7 @@ public class CardManager : MonoBehaviour
     {
         List<PRS> originCardPRSs = new List<PRS>();
         if (isMine)
-            originCardPRSs = RoundAlignment(myCardLeft, myCardRight, myCardLeft.childCount, 0.5f, Vector3.one * 1.9f);
+            originCardPRSs = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 1.9f);
         else
             originCardPRSs = RoundAlignment(otherCardLeft, otherCardRight, otherCards.Count, -0.5f, Vector3.one * 1.9f);
 
@@ -99,6 +100,7 @@ public class CardManager : MonoBehaviour
                          continue;
                      }*/
             targetCard.originPRS = originCardPRSs[i];
+         
             targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
         }
     }
