@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst { get; private set; }
     private void Awake() => Inst = this;
 
+    [SerializeField] NotificationPanel notificationPanel;
+
     private void Start()
     {
         StartGame();    
@@ -29,9 +31,16 @@ public class GameManager : MonoBehaviour
             TurnManager.OnAddCard?.Invoke(true);
         if (Input.GetKeyDown(KeyCode.Keypad2))
             TurnManager.OnAddCard?.Invoke(false);
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+            TurnManager.Inst.EndTurn();
     }
     private void StartGame()
     {
         StartCoroutine(TurnManager.Inst.StartGameCo());
+    }
+
+    public void Notification(string message)
+    {
+        notificationPanel.Show(message);
     }
 }

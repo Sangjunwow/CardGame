@@ -204,7 +204,7 @@ RectTransform:
   m_GameObject: {fileID: 194090331}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 466067159}
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9975b2596aadbd44917d49cd902bbf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationTMP: {fileID: 466067160}
 --- !u!1 &265363431
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a8abcda4b2b5e469a1b5f1b6d4e003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationPanel: {fileID: 194090335}
 --- !u!4 &456673560
 Transform:
   m_ObjectHideFlags: 0
@@ -648,7 +650,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1585,18 +1587,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card
       objectReference: {fileID: 0}
-    - target: {fileID: 3016699800341145711, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: -5519564138142106678, guid: 8890f0ed3228af24aa899cd47436e526, type: 2}
-    - target: {fileID: 6394042518370694621, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: -5519564138142106678, guid: 8890f0ed3228af24aa899cd47436e526, type: 2}
-    - target: {fileID: 7763397389677957547, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: -5519564138142106678, guid: 8890f0ed3228af24aa899cd47436e526, type: 2}
     - target: {fileID: 8157955003747458641, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.75
