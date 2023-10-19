@@ -48,8 +48,16 @@ public class Card : MonoBehaviour
         if (isFront)
             CardManager.Inst.CardMouseExit(this);
     }
-
-
+    void OnMouseDown()
+    {
+        if (isFront)
+            CardManager.Inst.CardMouseDown();
+    }
+    void OnMouseUp()
+    {
+        if (isFront)
+            CardManager.Inst.CardMouseUp();
+    }
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
     {
