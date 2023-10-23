@@ -157,6 +157,7 @@ MonoBehaviour:
   myCards: []
   otherCards: []
   cardSpawnPoint: {fileID: 1461881423}
+  otherCardSpawnPoint: {fileID: 1873074454}
   myCardLeft: {fileID: 2075961090}
   myCardRight: {fileID: 723516414}
   otherCardLeft: {fileID: 1670308120}
@@ -171,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 66019736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -276,6 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 265363432}
+  - component: {fileID: 265363433}
   m_Layer: 0
   m_Name: OtherPlayer
   m_TagString: Untagged
@@ -300,8 +302,37 @@ Transform:
   - {fileID: 1739622994}
   - {fileID: 1670308120}
   - {fileID: 1000482449}
+  - {fileID: 1873074454}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265363433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265363431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475dbddfcf5b6ec44ac9fc590bb9b11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    name: 
+    attack: 0
+    health: 0
+    sprite: {fileID: 0}
+    percent: 0
+  entity: {fileID: 0}
+  character: {fileID: 0}
+  nameTMP: {fileID: 0}
+  attackTMP: {fileID: 0}
+  healthTMP: {fileID: 0}
+  attack: 0
+  health: 0
+  isMine: 0
+  isBossOrEmpty: 1
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &402325559
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 402325560}
   - component: {fileID: 402325561}
+  - component: {fileID: 402325562}
   m_Layer: 0
   m_Name: MyBoss
   m_TagString: Untagged
@@ -386,6 +418,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &402325562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402325559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475dbddfcf5b6ec44ac9fc590bb9b11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    name: 
+    attack: 0
+    health: 0
+    sprite: {fileID: 0}
+    percent: 0
+  entity: {fileID: 0}
+  character: {fileID: 0}
+  nameTMP: {fileID: 0}
+  attackTMP: {fileID: 0}
+  healthTMP: {fileID: 0}
+  attack: 0
+  health: 0
+  isMine: 1
+  isBossOrEmpty: 1
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &456673558
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +717,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &537020358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537020360}
+  - component: {fileID: 537020359}
+  m_Layer: 0
+  m_Name: EntityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &537020359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537020358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe80086c3156f60448beebe7df1dfc3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityPrefab: {fileID: 6532292895327910664, guid: 5f2f06b31a4eaf749ae40aa90dd9d632, type: 3}
+  myEntities: []
+  otherEntities: []
+  myEmptyEntity: {fileID: 1854242323}
+  myBossEntity: {fileID: 402325562}
+  otherBossEntity: {fileID: 1021114653}
+--- !u!4 &537020360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537020358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.97276855, y: 3.7177947, z: -0.24487655}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &541183693
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +1033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1021114651}
   - component: {fileID: 1021114652}
+  - component: {fileID: 1021114653}
   m_Layer: 0
   m_Name: OtherBoss
   m_TagString: Untagged
@@ -997,6 +1108,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1021114653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021114650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475dbddfcf5b6ec44ac9fc590bb9b11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    name: 
+    attack: 0
+    health: 0
+    sprite: {fileID: 0}
+    percent: 0
+  entity: {fileID: 0}
+  character: {fileID: 0}
+  nameTMP: {fileID: 0}
+  attackTMP: {fileID: 0}
+  healthTMP: {fileID: 0}
+  attack: 0
+  health: 0
+  isMine: 0
+  isBossOrEmpty: 1
+  originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1166334530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,6 +1555,97 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1854242321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1854242322}
+  - component: {fileID: 1854242323}
+  m_Layer: 0
+  m_Name: MyEmptyEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1854242322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854242321}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1934879042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854242323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854242321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475dbddfcf5b6ec44ac9fc590bb9b11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    name: 
+    attack: 0
+    health: 0
+    sprite: {fileID: 0}
+    percent: 0
+  entity: {fileID: 0}
+  character: {fileID: 0}
+  nameTMP: {fileID: 0}
+  attackTMP: {fileID: 0}
+  healthTMP: {fileID: 0}
+  attack: 0
+  health: 0
+  isMine: 0
+  isBossOrEmpty: 1
+  originPos: {x: 0, y: 0, z: 0}
+--- !u!1 &1873074453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1873074454}
+  m_Layer: 0
+  m_Name: OtherCardSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1873074454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873074453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 265363432}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1934879041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,6 +1680,7 @@ Transform:
   - {fileID: 2075961090}
   - {fileID: 723516414}
   - {fileID: 887959043}
+  - {fileID: 1854242322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954213611
@@ -1666,13 +1897,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card
       objectReference: {fileID: 0}
+    - target: {fileID: 521583129900457358, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8157955003747458641, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8157955003747458641, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8157955003747458641, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1709,16 +1944,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7377706393111759176, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4626038652632902691, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4163775183683031971, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae862b27e5611ca4290a6c02a495cee6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1727,6 +1953,7 @@ SceneRoots:
   - {fileID: 66019738}
   - {fileID: 456673560}
   - {fileID: 675369703}
+  - {fileID: 537020360}
   - {fileID: 519420032}
   - {fileID: 541183696}
   - {fileID: 1286881277}
