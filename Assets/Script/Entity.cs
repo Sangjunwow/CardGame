@@ -12,12 +12,31 @@ public class Entity : MonoBehaviour
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
+    [SerializeField] GameObject sleepParticle;
 
     public int attack;
     public int health;
     public bool isMine;
     public bool isBossOrEmpty;
     public Vector3 originPos;
+    int liveCount;
+
+    private void Start()
+    {
+        TurnManager.OnTurnStarted += OnTurnStarted;
+    }
+    private void OnDestroy()
+    {
+        TurnManager.OnTurnStarted -= OnTurnStarted;
+    }
+    void OnTurnStarted(bool myTurn)
+    {
+        if (isBossOrEmpty)
+            return;
+        if (isMine == myTurn)
+            liveCount++;
+        sleepParticle.SetActive(liveCount < 1);
+    }
 
     public void Setup(Item item)
     {
@@ -39,3 +58,4 @@ public class Entity : MonoBehaviour
             transform.position = pos;
     }
 }
+

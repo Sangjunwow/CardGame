@@ -19,6 +19,28 @@ public class EntityManager : MonoBehaviour
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
 
+    WaitForSeconds delay1 = new WaitForSeconds(1);
+
+    private void Start()
+    {
+        TurnManager.OnTurnStarted += OnTurnStarted;
+    }
+    private void OnDestroy()
+    {
+        TurnManager.OnTurnStarted -= OnTurnStarted;
+    }
+    void OnTurnStarted(bool myTurn)
+    {
+        if (!myTurn)
+            StartCoroutine(AICo());
+    }
+    IEnumerator AICo()
+    {
+        CardManager.Inst.TryPutCard(false);
+        yield return null;
+
+        TurnManager.Inst.EndTurn();
+    }
     void EntityAlignment(bool isMine)
     {
         float targetY = isMine ? -4.35f : 4.15f;
