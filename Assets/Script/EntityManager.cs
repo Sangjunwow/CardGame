@@ -18,7 +18,11 @@ public class EntityManager : MonoBehaviour
     bool IsFullOtherEntities => otherEntities.Count >= MAX_ENTITY_COUNT;
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
+    bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
 
+
+    Entity selectEntity;
+    Entity targetPickEntity;
     WaitForSeconds delay1 = new WaitForSeconds(1);
 
     private void Start()
@@ -51,7 +55,7 @@ public class EntityManager : MonoBehaviour
             float targetX = (targetEntities.Count - 1) * -3.4f + i * 6.8f;
 
             var targetEntity = targetEntities[i];
-            targetEntity.originPos = new Vector3(targetX, targetX, 0);
+            targetEntity.originPos = new Vector3(targetX, targetY, 0);
             targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f);
             targetEntity.GetComponent<Order>()?.SetOriginOrder(i);
         }
@@ -105,5 +109,42 @@ public class EntityManager : MonoBehaviour
 
         return true;
 
+    }
+
+    public void EntityMouseDown(Entity entity)
+    {
+        if (!CanMouseInput)
+            return;
+        selectEntity = entity;
+    }
+    public void EntityMouseUp()
+    {
+        if (!CanMouseInput)
+            return;
+    }
+    public void EntitymouseDrag()
+    {
+        if (!CanMouseInput || selectEntity == null)
+            return;
+
+        // other 타겟엔티티 찾기
+        bool existTarget = false;
+        foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward))
+        {
+            Entity entity = hit.collider?.GetComponent<Entity>();
+            if (entity != null && !entity.isMine && selectEntity.attackable)
+            {
+                targetPickEntity = entity;
+                existTarget = true;
+                break;
+            }
+        }
+        if (!existTarget)
+            targetPickEntity = null;
+    }
+    public void AttackableReset(bool isMine)
+    {
+        var targetEntites = isMine ? myEntities : otherEntities;
+        targetEntites.ForEach(x => x.attackable = true);
     }
 }
