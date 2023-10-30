@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; 
 
 public class EntityManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] GameObject entityPrefab;
     [SerializeField] List<Entity> myEntities;
     [SerializeField] List<Entity> otherEntities;
+    [SerializeField] GameObject TargetPicker;
     [SerializeField] Entity myEmptyEntity;
     [SerializeField] Entity myBossEntity;
     [SerializeField] Entity otherBossEntity;
@@ -16,6 +18,7 @@ public class EntityManager : MonoBehaviour
     const int MAX_ENTITY_COUNT = 6;
     public bool IsFullMyEntities => myEntities.Count >= MAX_ENTITY_COUNT && !ExistMyEmptyEntity;
     bool IsFullOtherEntities => otherEntities.Count >= MAX_ENTITY_COUNT;
+    bool ExistTargetPickEntity => targetPickEntity != null;
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
     bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
@@ -35,9 +38,17 @@ public class EntityManager : MonoBehaviour
     }
     void OnTurnStarted(bool myTurn)
     {
+        AttackableReset(myTurn);
+
         if (!myTurn)
             StartCoroutine(AICo());
     }
+    void Update()
+    {
+        ShowTargetPicker(ExistTargetPickEntity);    
+    }
+
+
     IEnumerator AICo()
     {
         CardManager.Inst.TryPutCard(false);
@@ -121,6 +132,13 @@ public class EntityManager : MonoBehaviour
     {
         if (!CanMouseInput)
             return;
+
+        // selectEntity, targetPickEntity 둘다 존재하면 공격한다. 바로 null, null로 만든다
+        if (selectEntity && targetPickEntity && selectEntity.attackable)
+            Attack(selectEntity, targetPickEntity);
+
+        selectEntity = null;
+        targetPickEntity = null;
     }
     public void EntitymouseDrag()
     {
@@ -142,6 +160,32 @@ public class EntityManager : MonoBehaviour
         if (!existTarget)
             targetPickEntity = null;
     }
+
+    void Attack(Entity attacker, Entity defender)
+    {
+        //_attacker가 _defender의 위치로 이동하다 원래 위츠로 온다, 이떄 order가 높다
+        attacker.attackable = false;
+        attacker.GetComponent<Order>().SetMostFrontOrder(true);
+
+        Sequence sequence = DOTween.Sequence()
+            .Append(attacker.transform.DOMove(defender.originPos, 0.4f)).SetEase(Ease.InSine)
+            .AppendCallback(() =>
+            {
+                //데미지 주고받기
+            })
+            .Append(attacker.transform.DOMove(attacker.originPos, 0.4f)).SetEase(Ease.OutSine)
+            .OnComplete(() => { });//죽음 처리
+                                              
+                                           
+    }
+
+    void ShowTargetPicker(bool isShow)
+    {
+        TargetPicker.SetActive(isShow);
+        if (ExistTargetPickEntity)
+            TargetPicker.transform.position = targetPickEntity.transform.position;
+    }
+
     public void AttackableReset(bool isMine)
     {
         var targetEntites = isMine ? myEntities : otherEntities;
